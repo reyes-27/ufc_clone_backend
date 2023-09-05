@@ -1,7 +1,11 @@
 from rest_framework.serializers import(
     ModelSerializer,
 )
-from . import models
+from .models import (
+    FighterProfile,
+    Participation,
+    Fight,
+)
 # from apps.ufc_events.serializers import (
 #     ShortEventSerializer,
 #     )
@@ -9,26 +13,46 @@ from . import models
 
 class FighterProfileSerializer(ModelSerializer):
     class Meta:
-        model=models.FighterProfile
+        model=FighterProfile
         fields="__all__"
 
-class ParticipationSerializer(ModelSerializer):
-    fighter = FighterProfileSerializer()
+class ShortFighterSerializer(ModelSerializer):
     class Meta:
-        model=models.Participation
+        model=FighterProfile
         fields=[
-            "corner",
+            "full_name",
+            "nickname",
+            "f_photo",
+            "c_photo",
+            "reach",
+            "height",
+            "leg_reach",
+            "weight",
+        ]
+class SuperShortFighterProfileSerializer(ModelSerializer):
+    class Meta:
+        model = FighterProfile
+        fields = [
+            "full_name",
+        ]
+
+class ParticipationSerializer(ModelSerializer):
+    fighter = ShortFighterSerializer()
+    class Meta:
+        model=Participation
+        fields=[
             "fighter",
+            "corner",
             "loss",
             "victory",
         ]
 
 class FightSerializer(ModelSerializer):
-    fighter_partipation = ParticipationSerializer()
+    comperitor = ParticipationSerializer(source="fight_to_fighter", many=True, read_only=True)
     class Meta:
-        model=models.Fight
+        model=Fight
         fields=[
-            "fighter_participation",
+            "comperitor",
             "number_of_rounds",
             "t_round",
             "status",

@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class RankingsConfig(AppConfig):
+class UfcRankingsConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'apps.rankings'
+    name = 'apps.ufc_rankings'

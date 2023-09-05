@@ -47,7 +47,7 @@ THIRD_PARTY_APPS=[
 MY_APPS=[
     'apps.ufc_base.apps.UfcBaseConfig',
     'apps.ufc_events.apps.UfcEventsConfig',
-    'apps.rankings.apps.RankingsConfig',
+    'apps.ufc_rankings.apps.UfcRankingsConfig',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + MY_APPS

@@ -33,7 +33,7 @@ class FighterProfile(models.Model):
     c_photo =           models.ImageField()
     weight_division =   models.ForeignKey(WeightDivision, on_delete=models.CASCADE)
     status =            models.ForeignKey(FighterStatus, on_delete=models.SET_NULL, null=True)
-    fighter_tag =       models.ForeignKey(FighterTag, on_delete=models.PROTECT)
+    fighter_tag =       models.ForeignKey(FighterTag, on_delete=models.PROTECT, blank=True, null=True)
     #physical attributes
     age =               models.PositiveIntegerField()
     reach =             models.FloatField()
@@ -56,9 +56,9 @@ class Participation(models.Model):
         ("RC", "Red corner"),
         ("BC", "Blue corner"),
     )
-    fighter =               models.ForeignKey(FighterProfile, on_delete=models.SET_NULL, null=True)
-    fight =                 models.ForeignKey("Fight", on_delete=models.SET_NULL, null=True)
-    corner =                models.CharField(max_length=155)
+    fight =                 models.ForeignKey("Fight", on_delete=models.SET_NULL, null=True, related_name="fight_to_fighter")
+    fighter =               models.ForeignKey(FighterProfile, on_delete=models.SET_NULL, null=True, related_name="fighter_to_fight")
+    corner =                models.CharField(max_length=155, choices=corner_choices, blank=True, null=False)
     loss =                  models.BooleanField(default=False)
     victory =               models.BooleanField(default=False)
     def __str__(self):
@@ -81,7 +81,7 @@ class Fight(models.Model):
         ("KO", "KNOCKOUT"),
         ("TKO", "TECHNICAL KNOCKOUT"),
     )
-    fighter_partipation =           models.ManyToManyField(FighterProfile, through="Participation", null=True, related_name="fight_participation")
+    fighter_participation =         models.ManyToManyField(FighterProfile, through=Participation, through_fields=("fight", "fighter"))
     number_of_rounds =              models.PositiveIntegerField()
     t_round =                       models.FloatField()
     status =                        models.CharField(max_length=155, choices=status_choices)

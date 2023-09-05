@@ -6,5 +6,5 @@ from .views import (
 
 urlpatterns = [
     path("fighters/<int:pk>/", view=FighterProfileView.as_view(), name="fighter-detail"),
-    path("fight/<int:pk>/",view=FightDetailView.as_view(), name="fight-detail"),
+    path("fights/<int:pk>/",view=FightDetailView.as_view(), name="fight-detail"),
 ]

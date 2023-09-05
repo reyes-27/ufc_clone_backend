@@ -20,7 +20,7 @@ class FightDetailView(RetrieveAPIView):
     def get(self, request, format=None, *args, **kwargs):
         fight=self.get_object()
         print(fight, "--------------------")
-        serializer=FightSerializer(fight)
+        serializer=FightSerializer(fight, read_only=True)
         return Response(data={"data":serializer.data})
     
 class FighterProfileView(APIView):

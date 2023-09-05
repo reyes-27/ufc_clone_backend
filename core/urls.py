@@ -21,6 +21,7 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("api/events/", include("apps.ufc_events.urls")),
+    path("api/rankings/", include("apps.ufc_rankings.urls")),
     path("api/", include("apps.ufc_base.urls")),
 ]
 
