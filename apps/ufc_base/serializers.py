@@ -5,6 +5,7 @@ from .models import (
     FighterProfile,
     Participation,
     Fight,
+    WeightDivision,
 )
 # from apps.ufc_events.serializers import (
 #     ShortEventSerializer,
@@ -14,7 +15,28 @@ from .models import (
 class FighterProfileSerializer(ModelSerializer):
     class Meta:
         model=FighterProfile
-        fields="__all__"
+        fields=[
+            "fighter_slug",
+            "full_name",
+            "nickname",
+            "birthdate",
+            "native_city",
+            "f_photo",
+            "c_photo",
+            "weight_division",
+            "status",
+            "fighter_tag",
+            "age",
+            "reach",
+            "height",
+            "leg_reach",
+            "weight",
+            "number_of_fights",
+            "victories",
+            "losses",
+            "draws",
+            "no_contest",
+        ]
 
 class ShortFighterSerializer(ModelSerializer):
     class Meta:
@@ -58,4 +80,11 @@ class FightSerializer(ModelSerializer):
             "status",
             "result",
             "method",
+        ]
+
+class WeightDivisionSerializer(ModelSerializer):
+    class Meta:
+        model = WeightDivision
+        fields = [
+            "name",
         ]

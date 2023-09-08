@@ -1,4 +1,7 @@
 from django.db import models
+import uuid
+from django.utils.text import slugify
+
 # Create your models here.
 
 class FighterTag(models.Model):
@@ -22,15 +25,21 @@ class WeightDivision(models.Model):
 
     def __str__(self):
         return self.name
-    
+
+def c_photo(instance, filename):
+    return "fighters/c_photo/{0}/{1}".format(instance, filename)
+def f_photo(instance, filename):
+    return "fighters/f_photo/{0}/{1}".format(instance, filename)
 
 class FighterProfile(models.Model):
+    id =                models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    fighter_slug =      models.SlugField(max_length=200, blank=True, null=False)
     full_name =         models.CharField(max_length=155)
     nickname =          models.CharField(max_length=30)
     birthdate =         models.DateField()
     native_city =       models.CharField(max_length=155)
-    f_photo =           models.ImageField()
-    c_photo =           models.ImageField()
+    f_photo =           models.ImageField(upload_to=f_photo)
+    c_photo =           models.ImageField(upload_to=c_photo)
     weight_division =   models.ForeignKey(WeightDivision, on_delete=models.CASCADE)
     status =            models.ForeignKey(FighterStatus, on_delete=models.SET_NULL, null=True)
     fighter_tag =       models.ForeignKey(FighterTag, on_delete=models.PROTECT, blank=True, null=True)
@@ -41,11 +50,18 @@ class FighterProfile(models.Model):
     leg_reach =         models.FloatField()
     weight =            models.FloatField()
     #fighter stats
-    number_of_fights =              models.PositiveIntegerField()
+    number_of_fights =              models.PositiveIntegerField(blank=True, null=True)
     victories =                     models.PositiveIntegerField()
     losses =                        models.PositiveIntegerField()
     draws =                         models.PositiveIntegerField()
     no_contest =                    models.PositiveIntegerField()
+
+    def save(self ,*args, **kwargs):
+        if not self.fighter_slug:
+            self.fighter_slug = slugify(self.full_name)
+        if not self.number_of_fights:
+            self.number_of_fights = self.victories + self.losses + self.draws + self.no_contest
+        super(FighterProfile, self).save(*args, **kwargs)
 
     
     def __str__(self):

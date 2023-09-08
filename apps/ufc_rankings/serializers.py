@@ -4,6 +4,7 @@ from rest_framework.serializers import (
 )
 from apps.ufc_base.serializers import (
     SuperShortFighterProfileSerializer,
+    WeightDivisionSerializer,
 )
 
 from .models import (
@@ -26,10 +27,11 @@ class RankingSpotSerializer(ModelSerializer):
         ]
 
 class RankingSerializer(ModelSerializer):
-    ranking_spot = RankingSpotSerializer(source="ranking_to_fighter", many=True, read_only=True)
+    fighters = RankingSpotSerializer(source="ranking_to_fighter", many=True, read_only=True)
+    weight_division = WeightDivisionSerializer()
     class Meta:
         model = Ranking
         fields = [
             "weight_division",
-            "ranking_spot"
+            "fighters"
         ]

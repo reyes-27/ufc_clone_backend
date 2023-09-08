@@ -7,6 +7,8 @@ class RankingSpot(models.Model):
     rank_number =                   models.PositiveIntegerField(unique=True, blank=True, null=True)
     champion =                      models.BooleanField(default=False)
     interm_champion =               models.BooleanField(default=False)
+    class Meta:
+        ordering=["rank_number"]
     def __str__(self):
         if self.champion == True:
             expression = f'Champion - {self.fighter}'

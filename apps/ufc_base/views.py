@@ -1,6 +1,9 @@
 from rest_framework.response import Response
 from rest_framework.generics import RetrieveAPIView
-from rest_framework import permissions
+from rest_framework import (
+    permissions,
+    status,
+    )
 from rest_framework.views import APIView
 from .models import (
     Fight,
@@ -10,6 +13,7 @@ from .serializers import (
     FightSerializer,
     FighterProfileSerializer,
     )
+
 # Create your views here.
 
 class FightDetailView(RetrieveAPIView):
@@ -26,9 +30,10 @@ class FightDetailView(RetrieveAPIView):
 class FighterProfileView(APIView):
     permission_classes=[permissions.AllowAny,]
     def get(self, request, format=None, *args, **kwargs):
-        profile=FighterProfile.objects.get(pk=self.kwargs["pk"])
+        profile=FighterProfile.objects.get(fighter_slug=self.kwargs["slug"])
         if profile:
             serializer=FighterProfileSerializer(profile)
             return Response(data={"data":serializer.data})
         else:
             return Response(data={"data":"nothing"})
+        

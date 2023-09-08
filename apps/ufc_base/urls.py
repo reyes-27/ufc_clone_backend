@@ -5,6 +5,7 @@ from .views import (
     )
 
 urlpatterns = [
-    path("fighters/<int:pk>/", view=FighterProfileView.as_view(), name="fighter-detail"),
+    path("fighters/<slug:slug>/", view=FighterProfileView.as_view(), name="fighter-detail"),
     path("fights/<int:pk>/",view=FightDetailView.as_view(), name="fight-detail"),
 ]
+
