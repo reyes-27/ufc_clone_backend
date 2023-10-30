@@ -6,17 +6,15 @@ from rest_framework import (
     status,
     permissions,
     )
-from django.db import connection
 
 # Create your views here.
 
 class RankingListView(APIView):
-    permission_classes=[permissions.AllowAny,]
+    permission_classes = [permissions.AllowAny,]
     def get(self, request, format=None):
         queryset = Ranking.objects.prefetch_related("ranking_spot").all()
-        print(connection.queries)
         if Ranking.objects.all().exists():
             serializer = RankingSerializer(queryset, many=True)
-            return Response(data=serializer.data, status=status.HTTP_200_OK)
+            return Response(data={"rankings":serializer.data}, status=status.HTTP_200_OK)
         else:
             return Response(data={"data": "No data"}, status=status.HTTP_204_NO_CONTENT)

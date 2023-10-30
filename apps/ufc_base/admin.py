@@ -8,6 +8,8 @@ from .models import (
     Participation,
 )
 # Register your models here.
+
+
 class FighterProfileAdmin(admin.ModelAdmin):
     list_display = [
         "fighter_slug",
@@ -40,6 +42,7 @@ class FighterProfileAdmin(admin.ModelAdmin):
         "draws",
         "no_contest",
     ]
+
 
 admin.site.register(model_or_iterable=FighterProfile, admin_class=FighterProfileAdmin)
 admin.site.register(model_or_iterable=FighterStatus)

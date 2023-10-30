@@ -24,7 +24,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("api/events/", include("apps.ufc_events.urls")),
     path("api/rankings/", include("apps.ufc_rankings.urls")),
+    path("api/feed/", include("apps.ufc_feed.urls")),
     path("api/", include("apps.ufc_base.urls")),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

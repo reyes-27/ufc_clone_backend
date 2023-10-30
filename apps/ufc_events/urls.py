@@ -3,6 +3,7 @@ from .views import (
     EventListView,
     EventDetailView,
     EventTypeView,
+    EventsByStatus,
     )
 
 urlpatterns = [

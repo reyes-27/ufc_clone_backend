@@ -9,21 +9,29 @@ class EventSerializer(serializers.HyperlinkedModelSerializer):
         lookup_field="id",
         lookup_url_kwarg="pk",
     )
-
-    type_of_event=serializers.CharField()
-
-    bout = FightSerializer(many=True, read_only=True)
+    
+    type_of_event = serializers.CharField()
+    bouts = serializers.SerializerMethodField()
 
     class Meta:
         model = models.Event
         fields = [
             "url",
             "id",
+            "cover",
             "type_of_event",
-            "bout",
+            "bouts",
             "name",
             "description",
+            "status",
         ]
+
+    def get_bouts(self, instance):
+        bouts = instance.bout.order_by("card", "tier")
+        return FightSerializer(bouts, many=True, read_only=True).data
+    
+        
+
 
 class ShortEventSerializer(serializers.HyperlinkedModelSerializer):
     url=serializers.HyperlinkedIdentityField(
@@ -36,5 +44,9 @@ class ShortEventSerializer(serializers.HyperlinkedModelSerializer):
         fields=[
             "url",
             "id",
+            "cover",
             "name",
+            "description",
+            "status",
+
         ] 
