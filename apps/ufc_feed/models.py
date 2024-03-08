@@ -4,6 +4,7 @@ from ckeditor.fields import RichTextField
 import uuid
 from django.utils.text import slugify
 from datetime import datetime
+from django.core.validators import FileExtensionValidator
 from django_cleanup import cleanup
 # Create your models here.
 
@@ -29,7 +30,7 @@ class Post(models.Model):
     cover =                     ResizedImageField(scale=1, quality=100, force_format="PNG", upload_to=cover_loc)
     title =                     models.CharField(max_length=155)
     description =               RichTextField()
-    demo =                      models.FileField(upload_to=demo_loc)
+    demo =                      models.FileField(upload_to=demo_loc, validators=[FileExtensionValidator(allowed_extensions=["mp4"])])
 
     class Meta:
         verbose_name = "post"
@@ -38,5 +39,4 @@ class Post(models.Model):
     def __str__(self):
         _ = slugify(self.title)
         return _
-
 

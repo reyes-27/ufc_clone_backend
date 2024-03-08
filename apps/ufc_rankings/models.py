@@ -27,9 +27,9 @@ class Ranking(models.Model):
     ranking_spot =                              models.ManyToManyField(base_models.FighterProfile, through=RankingSpot, through_fields = ('ranking', 'fighter'))
     
     def save(self, *args, **kwargs):
-        if not self.fighter_slug:
+        if not self.ranking_slug:
             self.ranking_slug=slugify(self.weight_division)
-        super(Ranking, self).save(**args, **kwargs)
+        super(Ranking, self).save(*args, **kwargs)
     
     def __str__(self):
         return f'{self.weight_division} Ranking'

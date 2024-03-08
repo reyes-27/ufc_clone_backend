@@ -145,9 +145,6 @@ class Fight(models.Model):
     method =                        models.CharField(max_length=155, choices=method_choices,  null=True, blank=True)
     card =                          models.CharField(max_length=155, choices=card_choices,  null=True, blank=True)
     tier =                          models.CharField(max_length=155, choices=tier_choices,  null=True, blank=True)
-    # early_prelimns =                models.BooleanField(default=False)
-    # prelimns =                      models.BooleanField(default=False)
-    # main_card =                     models.BooleanField(default=False)
 
     def __str__(self):
         return self.name

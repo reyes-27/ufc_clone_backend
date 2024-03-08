@@ -26,6 +26,7 @@ class UfcBaseViewsTestCase(APITestCase):
             description="A fighter that is got a high chance to fight for the title",
         )
         status = FighterStatus.objects.create(status="Active")
+        
         byteImgIO1 = io.BytesIO()
         f_photo_png = Image.open(f"{settings.MEDIA_ROOT}/fighters/f_photo/Alex Pereira/PEREIRA_ALEX_R_07-29.png")
         f_photo_png.save(byteImgIO1, "PNG")
@@ -52,7 +53,7 @@ class UfcBaseViewsTestCase(APITestCase):
             leg_reach=56,
             weight=230,
 
-            victories=7,
+            victories=8,
             losses=2,
             draws=0,
             no_contest=0,
