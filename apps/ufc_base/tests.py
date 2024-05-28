@@ -28,14 +28,14 @@ class UfcBaseViewsTestCase(APITestCase):
         status = FighterStatus.objects.create(status="Active")
         
         byteImgIO1 = io.BytesIO()
-        f_photo_png = Image.open(f"{settings.MEDIA_ROOT}/fighters/f_photo/Alex Pereira/PEREIRA_ALEX_R_07-29.png")
+        f_photo_png = Image.open(f"{settings.MEDIA_ROOT}/fighters/f_photo/Alex Pereira/PEREIRA_ALEX_L_BELT_04-08.png")
         f_photo_png.save(byteImgIO1, "PNG")
-        f_photo = ContentFile(byteImgIO1.getvalue(), 'PEREIRA_ALEX_R_07-29.png')
+        f_photo = ContentFile(byteImgIO1.getvalue(), 'PEREIRA_ALEX_L_BELT_04-08.png')
 
         byteImgIO2 = io.BytesIO()
-        c_photo_png = Image.open(f"{settings.MEDIA_ROOT}/fighters/c_photo/Alex Pereira/PEREIRA_ALEX_07-29.png")
+        c_photo_png = Image.open(f"{settings.MEDIA_ROOT}/fighters/c_photo/Alex Pereira/PEREIRA_ALEX_BELT_04-08.png")
         c_photo_png.save(byteImgIO2, "PNG")
-        c_photo = ContentFile(byteImgIO2.getvalue(), 'PEREIRA_ALEX_07-29.png')
+        c_photo = ContentFile(byteImgIO2.getvalue(), 'PEREIRA_ALEX_BELT_04-08.png')
 
         cls.fighter = FighterProfile.objects.create(
             full_name="Alex Pereira",
