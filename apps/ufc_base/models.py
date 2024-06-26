@@ -2,6 +2,7 @@ from django.db import models
 import uuid
 from django.utils.text import slugify
 from django_resized import ResizedImageField
+from apps.ufc_events.models import Event
 
 # Create your models here.
 
@@ -145,6 +146,6 @@ class Fight(models.Model):
     method =                        models.CharField(max_length=155, choices=method_choices,  null=True, blank=True)
     card =                          models.CharField(max_length=155, choices=card_choices,  null=True, blank=True)
     tier =                          models.CharField(max_length=155, choices=tier_choices,  null=True, blank=True)
-
+    event =                         models.ForeignKey(Event, on_delete=models.CASCADE, related_name="bouts", null=True, blank=True)
     def __str__(self):
         return self.name

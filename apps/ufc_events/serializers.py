@@ -27,7 +27,7 @@ class EventSerializer(serializers.HyperlinkedModelSerializer):
         ]
 
     def get_bouts(self, instance):
-        bouts = instance.bout.order_by("card", "tier")
+        bouts = instance.bouts.order_by("card", "tier")
         return FightSerializer(bouts, many=True, read_only=True).data
     
         
@@ -49,4 +49,5 @@ class ShortEventSerializer(serializers.HyperlinkedModelSerializer):
             "description",
             "status",
 
-        ] 
+        ]
+    

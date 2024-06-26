@@ -1,5 +1,5 @@
 from django.db import models
-from apps.ufc_base import models as base_models
+# from apps.ufc_base import models as base_models
 from django_resized import ResizedImageField
 import uuid
 from django.utils.text import slugify
@@ -24,12 +24,13 @@ class Event(models.Model):
         ("FT", "FOUGHT"),
     )
     type_of_event =                 models.ForeignKey(EventType, on_delete=models.PROTECT)
-    bout =                          models.ManyToManyField(base_models.Fight, related_name="events")
+    # bout =                          models.ManyToManyField(base_models.Fight, related_name="events")
     cover =                         ResizedImageField(upload_to=event_cover, force_format='PNG', blank=True, null=True)
     name =                          models.CharField(max_length=155)
     description =                   models.TextField()
     status =                        models.CharField(max_length=155, choices=status_choices, default="UP")
-
+    date =                          models.DateField(null=True)
+    
     @staticmethod
     def get_events_by_status(status):
         return Event.objects.filter(status=status)

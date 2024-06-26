@@ -25,7 +25,7 @@ class EventListView(APIView):
         paginator = SmallSetPagination()
 
         if Event.objects.all().exists():
-            events = Event.objects.filter(status="UP")
+            events = Event.objects.filter(status="UP").order_by("-date")
             if query:
                 events = Event.get_events_by_status(query)
             results = paginator.paginate_queryset(events, request=request)
